@@ -69,12 +69,15 @@ public class ScreenRecorder{
 			File scanFolder=new File(inputImageDir);
 			scanFolder.delete();
 			scanFolder.mkdirs();
-			
-			createGUI();
+			counter=0;
+			 startRecording();
 		} catch (Exception e) {
 			System.out.println("Exception in program "+e.getMessage());
 		}
 	}
+        public void m2(){
+        stopRecording();
+        }
 	
 	public static void createGUI()
 	{

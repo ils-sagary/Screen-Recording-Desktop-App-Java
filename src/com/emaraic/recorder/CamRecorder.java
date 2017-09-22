@@ -33,6 +33,7 @@ public class CamRecorder extends JFrame {
     private JButton button1 = new JButton("One");
     private JButton control;
     private JButton button3;
+    private JButton button4;
     private JLabel text1;
     private JLabel text2;
     private JPanel canvas;
@@ -57,6 +58,7 @@ public class CamRecorder extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         control = new JButton("Start");
         button3=new JButton("SCREENRECORD");
+        button4=new JButton("Stop SCREENRECORD");
         text1 = new JLabel("  ");
         text2 = new JLabel(" Developer: Sagar Yadav");
         canvas = new JPanel();
@@ -73,6 +75,8 @@ public class CamRecorder extends JFrame {
         table.addCell(text2);
          table.row();
         table.addCell(button3);
+          table.row();
+        table.addCell(button4);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -100,12 +104,16 @@ public class CamRecorder extends JFrame {
             }
 
         });
-         control.setText("Stop");
-            catcher = new Thread(cat);
-            catcher.start();
-            runnable = true;
-            text1.setText("<html><font color='red'>Recording ...</font></html>");
-        //table.debug();
+              button4.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ScreenRecorder s=new ScreenRecorder();
+                s.m2();
+            }
+
+        });
+        
+       
     }
 
     private void jButton1ActionPerformed(ActionEvent evt) throws Exception, FrameGrabber.Exception, InterruptedException {
@@ -136,7 +144,7 @@ public class CamRecorder extends JFrame {
                         double d1;
                         d1 = Math.random();
                        
-                        control.setText("Stop");
+                  
                         grabber.setImageWidth(CAPTUREWIDTH);
                         grabber.setImageHeight(CAPTUREHRIGHT);
                         grabber.start();
