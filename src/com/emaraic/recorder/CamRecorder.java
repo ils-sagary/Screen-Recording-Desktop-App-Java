@@ -29,7 +29,7 @@ import java.util.Date;
 
 
 public class CamRecorder extends JFrame {
-
+	ScreenRecorder s=new ScreenRecorder();;
     private JButton button1 = new JButton("One");
     private JButton control;
     private JButton button3;
@@ -56,7 +56,7 @@ public class CamRecorder extends JFrame {
         setTitle("Camera Recorder");
         setSize(1000, 1100);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        control = new JButton("Start");
+        control = new JButton("Start WebCam Recording");
         button3=new JButton("SCREENRECORD");
         button4=new JButton("Stop SCREENRECORD");
         text1 = new JLabel("  ");
@@ -84,7 +84,7 @@ public class CamRecorder extends JFrame {
         control.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
+                try {  
                     jButton1ActionPerformed(evt);
                 } catch (Exception ex) {
                     Logger.getLogger(CamRecorder.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,7 +99,16 @@ public class CamRecorder extends JFrame {
         button3.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ScreenRecorder s=new ScreenRecorder();
+              
+                try {
+                    jButton1ActionPerformed(evt);
+                } catch (Exception ex) {
+                    Logger.getLogger(CamRecorder.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (FrameGrabber.Exception ex) {
+                    Logger.getLogger(CamRecorder.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(CamRecorder.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 s.m1();
             }
 
@@ -107,7 +116,7 @@ public class CamRecorder extends JFrame {
               button4.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ScreenRecorder s=new ScreenRecorder();
+                
                 s.m2();
             }
 
@@ -117,16 +126,16 @@ public class CamRecorder extends JFrame {
     }
 
     private void jButton1ActionPerformed(ActionEvent evt) throws Exception, FrameGrabber.Exception, InterruptedException {
-        if (control.getText().equals("Stop")) {
+        if (control.getText().equals("Stop WebCam Recording")) {
             catcher.stop();
             recorder.stop();
             grabber.stop();
             runnable = false;
-            control.setText("Start");
+            control.setText("Start WebCam Recording");
             
             text1.setText("");
         } else {
-            control.setText("Stop");
+            control.setText("Stop WebCam Recording");
             catcher = new Thread(cat);
             catcher.start();
             runnable = true;

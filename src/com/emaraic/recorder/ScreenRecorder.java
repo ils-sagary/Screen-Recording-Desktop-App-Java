@@ -32,7 +32,7 @@ public class ScreenRecorder{
 	public static boolean videoComplete=false;
 	public static String inputImageDir="inputImgFolder"+File.separator;
 	public static String inputImgExt="png";
-	public static String outputVideo="recording.mp4"; 
+	public static String outputVideo="recording"; 
 	public static int counter=0;
 	public static int imgProcessed=0;
 	public static FFmpegFrameRecorder recorder=null;
@@ -51,7 +51,10 @@ public class ScreenRecorder{
 	public static int c2=0;
 	public static int c3=0;
 	public static int c4=0;
-	
+	ScreenRecorder(){
+		double x=Math.random();
+		this.outputVideo=outputVideo+x+".mp4";
+	}
 	
 	public  void m1() {
 		
@@ -262,5 +265,7 @@ public class ScreenRecorder{
 		} catch (Exception e) {
 			System.out.println("Exception while stopping the recorder "+e.getMessage());
 		}
+		System.out.println("thread is stop");
 	}
+	
 }
