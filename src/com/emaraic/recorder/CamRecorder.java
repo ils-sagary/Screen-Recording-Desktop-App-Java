@@ -29,9 +29,10 @@ import java.util.Date;
 
 
 public class CamRecorder extends JFrame {
-	ScreenRecorder s=new ScreenRecorder();;
+	private ScreenRecorder s;
     private JButton button1 = new JButton("One");
     private JButton control;
+    private int i=0;
     private JButton button3;
     private JButton button4;
     private JLabel text1;
@@ -85,6 +86,7 @@ public class CamRecorder extends JFrame {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {  
+                	i=1;
                     jButton1ActionPerformed(evt);
                 } catch (Exception ex) {
                     Logger.getLogger(CamRecorder.class.getName()).log(Level.SEVERE, null, ex);
@@ -100,15 +102,14 @@ public class CamRecorder extends JFrame {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
               
-                try {
-                    jButton1ActionPerformed(evt);
-                } catch (Exception ex) {
-                    Logger.getLogger(CamRecorder.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (FrameGrabber.Exception ex) {
-                    Logger.getLogger(CamRecorder.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(CamRecorder.class.getName()).log(Level.SEVERE, null, ex);
-                }
+             try {
+            	 Class c=Class.forName("com.emaraic.recorder.ScreenRecorder");
+				s=(ScreenRecorder)c.newInstance();
+				
+			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+				System.out.println("new Instance");
+				e.printStackTrace();
+			}
                 s.m1();
             }
 
@@ -214,7 +215,7 @@ public class CamRecorder extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
+   public static void main(String[] args) {
         new CamRecorder();
 
     }

@@ -1,9 +1,5 @@
 package com.emaraic.recorder;
-
-
-
 import static org.bytedeco.javacpp.opencv_imgcodecs.cvLoadImage;
-
 import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -32,7 +28,7 @@ public class ScreenRecorder{
 	public static boolean videoComplete=false;
 	public static String inputImageDir="inputImgFolder"+File.separator;
 	public static String inputImgExt="png";
-	public static String outputVideo="recording"; 
+	public static String outputVideo;
 	public static int counter=0;
 	public static int imgProcessed=0;
 	public static FFmpegFrameRecorder recorder=null;
@@ -52,8 +48,8 @@ public class ScreenRecorder{
 	public static int c3=0;
 	public static int c4=0;
 	ScreenRecorder(){
-		double x=Math.random();
-		this.outputVideo=outputVideo+x+".mp4";
+		double i=Math.random();
+		this.outputVideo=i+"recording.mp4"; 
 	}
 	
 	public  void m1() {
@@ -262,10 +258,33 @@ public class ScreenRecorder{
 			getRecorder().stop();
 			System.out.println("Recording has been saved successfully at "+new File(outputVideo).getAbsolutePath());
 			JOptionPane.showMessageDialog(frame, "Recording has been saved successfully at "+new File(outputVideo).getAbsolutePath());
+			outputVideo=null;
 		} catch (Exception e) {
 			System.out.println("Exception while stopping the recorder "+e.getMessage());
 		}
 		System.out.println("thread is stop");
+		 videoComplete=false;
+		 inputImageDir="inputImgFolder"+File.separator;
+	     inputImgExt="png";
+		 outputVideo=null;
+		 counter=0;
+		 imgProcessed=0;
+		 recorder=null;
+		 videoWidth=1920;
+		 videoHeight=1080;
+		 videoFrameRate=3;
+		 videoQuality=0; // 0 is the max quality
+		 videoBitRate=9000;
+		 videoFormat="mp4";
+		 videoCodec=avcodec.AV_CODEC_ID_MPEG4;
+		 t1=null;
+		 t2=null;
+		 frame=null;
+		 isRegionSelected=false;
+		c1=0;
+		c2=0;
+		c3=0;
+	    c4=0;
 	}
 	
 }
