@@ -1,8 +1,14 @@
 package com.emaraic.recorder;
-
+import javax.swing.*;
+import java.awt.event.*;
 import com.esotericsoftware.tablelayout.swing.Table;
+import com.sun.javafx.geom.Rectangle;
+
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.util.logging.Level;
@@ -29,6 +35,7 @@ import java.util.Date;
 
 
 public class CamRecorder extends JFrame {
+	private static CamRecorder c;
 	private ScreenRecorder s;
     private JButton button1 = new JButton("One");
     private JButton control;
@@ -61,7 +68,6 @@ public class CamRecorder extends JFrame {
         button3=new JButton("SCREENRECORD");
         button4=new JButton("Stop SCREENRECORD");
         text1 = new JLabel("  ");
-        text2 = new JLabel(" Developer: Sagar Yadav");
         canvas = new JPanel();
         Table table = new Table();
         table.pad(40);
@@ -104,13 +110,26 @@ public class CamRecorder extends JFrame {
               
              try {
             	 Class c=Class.forName("com.emaraic.recorder.ScreenRecorder");
-				s=(ScreenRecorder)c.newInstance();
-				
+				s=(ScreenRecorder)c.newInstance();				
 			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 				System.out.println("new Instance");
 				e.printStackTrace();
 			}
-                s.m1();
+             System.out.println(c.getGraphicsConfiguration().getDevice());
+             c.setState(java.awt.Frame.ICONIFIED);   
+             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+             GraphicsDevice[] gs = ge.getScreenDevices();
+             for(GraphicsDevice curGs : gs)
+             {
+                   GraphicsConfiguration[] gc = curGs.getConfigurations();
+                   for(GraphicsConfiguration curGc : gc)
+                   {
+                	   java.awt.Rectangle bounds = curGc.getBounds();
+
+                         System.out.println(bounds.getX() + "," + bounds.getY() + " " + bounds.getWidth() + "x" + bounds.getHeight());
+                   }
+              }
+             s.m1();
             }
 
         });
@@ -216,7 +235,7 @@ public class CamRecorder extends JFrame {
     }
 
    public static void main(String[] args) {
-        new CamRecorder();
+       c = new CamRecorder();
 
     }
 
